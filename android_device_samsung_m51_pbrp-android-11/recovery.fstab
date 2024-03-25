@@ -1,0 +1,27 @@
+
+# Android fstab file.
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+# mount point       fstype    device                                                                flags
+odm /odm ext4
+product /product ext4
+/system ext4 /system
+/system_image   emmc /dev/block/mapper/system                flags=backup=1;flashimg=1;display="system image";
+vendor /vendor ext4
+
+/boot				emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/boot                 flags=backup=1;display="boot";flashimg=1
+/recovery 			emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/recovery              flags=backup=1;display="recovery";flashimg=1
+/data	 			f2fs	/dev/block/platform/soc/1d84000.ufshc/by-name/userdata	     		flags=encryptable=footer,length=-16384;
+/cache				ext4	/dev/block/platform/soc/1d84000.ufshc/by-name/cache                 flags=wipeingui;wipeduringfactoryreset
+
+# Add misc for GOTA
+/misc  				emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/misc                  flags=backup=1;display="misc"  
+
+#Auto-generated code by FOTA Portal
+/dtbo 				emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/dtbo        		    flags=backup=1;display="Dtbo";flashimg=1
+/vbmeta				emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/vbmeta		flags=backup=1;display="vbmeta";flashimg=1
+/vbmeta_samsung		emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/vbmeta_samsung		flags=backup=1;display="vbmeta samsung";flashimg=1
+
+/external_sd 	 	auto	/dev/block/platform/soc/8804000.sdhci/mmcblk0p1       flags=display="external_sd";storage;wipeingui;removable;
+/usb_otg			auto	/dev/block/platform/soc/a600000.ssusb/a600000.dwc3/xhci-hcd.0.auto/sde1              flags=display="usb_otg";storage;wipeingui;removable;
